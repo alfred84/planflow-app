@@ -11,10 +11,11 @@ import { MatMenuModule } from "@angular/material/menu"
 import { MatBadgeModule } from "@angular/material/badge"
 import { MatTooltipModule } from "@angular/material/tooltip"
 import { DragDropModule, type CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop"
-import { TrelloService, type TrelloBoard, type TrelloList, type TrelloCard } from "../../core/services/trello.service"
+import { TrelloService } from "../../core/services/trello.service"
 import { LoadingService } from "../../core/services/loading.service"
 import { CreateCardDialogComponent } from "../../shared/components/create-card-dialog/create-card-dialog.component"
 import { EditCardDialogComponent } from "../../shared/components/edit-card-dialog/edit-card-dialog.component"
+import { TrelloBoard, TrelloCard, TrelloList } from "../../core/models/trello.model"
 
 interface ListWithCards {
   list: TrelloList

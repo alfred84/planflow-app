@@ -10,10 +10,12 @@ import { MatChipsModule } from "@angular/material/chips"
 import { MatDividerModule } from "@angular/material/divider"
 import { MatTooltipModule } from "@angular/material/tooltip"
 import { MatBadgeModule } from "@angular/material/badge"
-import { TrelloService, type TrelloBoard, type TrelloList, type TrelloCard } from "../../core/services/trello.service"
-import { AIService, type AIAnalysis } from "../../core/services/ai.service"
+import { AIService} from "../../core/services/ai.service"
 import { LoadingService } from "../../core/services/loading.service"
 import { BoardMetrics } from "../../core/models/board-metrics.interface"
+import { TrelloBoard, TrelloCard, TrelloList } from "../../core/models/trello.model"
+import { TrelloService } from "../../core/services/trello.service"
+import { AIAnalysis } from "../../core/models/aianalisis.interface"
 
 @Component({
   selector: "app-analytics",

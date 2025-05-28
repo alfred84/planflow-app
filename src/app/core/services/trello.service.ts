@@ -1,6 +1,6 @@
 import { Injectable, effect, inject, signal } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
-import { type Observable, of, delay, throwError } from "rxjs"
+import { type Observable, throwError } from "rxjs"
 import { catchError, tap } from "rxjs/operators"
 import { TrelloBoard, TrelloCard, TrelloList } from "../models/trello.model";
 

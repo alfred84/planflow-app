@@ -1,7 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common'; 
 import { PLATFORM_ID } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface Feature {
   icon: string;
@@ -30,6 +30,7 @@ interface Testimonial {
 export class HomeComponent {
 
   private platformId = inject(PLATFORM_ID);
+  router = inject(Router)
 
   features = signal<Feature[]>([
     {
@@ -82,7 +83,7 @@ export class HomeComponent {
   
 
   connectTrelloNow() {
-    console.log('Connect Trello Now');
+    this.router.navigate(["/login"]);
   }
 
   userCount(): number {

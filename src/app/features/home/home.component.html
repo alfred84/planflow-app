@@ -45,15 +45,15 @@
                 <a href="#features" class="text-white/80 hover:text-white transition-colors">Características</a>
                 <a href="#benefits" class="text-white/80 hover:text-white transition-colors">Beneficios</a>
                 <a href="#testimonials" class="text-white/80 hover:text-white transition-colors">Testimonios</a>
-                <button 
-                  (click)="startWithTrello()"
+                <a 
+                  routerLink="/login" 
                   class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full flex items-center justify-center space-x-2 transition-all duration-300"
                 >
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                   </svg>
                   <span>Iniciar con Trello</span>
-                </button>
+                </a>
               </div>
             </div>
           }
@@ -89,8 +89,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <button 
-                (click)="beginWithTrello()"
+              <a routerLink="/login"                 
                 class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full text-lg font-semibold flex items-center space-x-3 transition-all duration-300 transform hover:scale-105 shadow-2xl"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,7 +99,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
-              </button>
+              </a>
               
               <button 
                 (click)="showDemo()"

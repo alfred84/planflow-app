@@ -9,7 +9,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker"
 import { MatNativeDateModule } from "@angular/material/core"
 import { MatIconModule } from "@angular/material/icon"
 import { MatDividerModule } from "@angular/material/divider"
-import type { TrelloCard } from "../../../core/services/trello.service"
+import { TrelloCard } from "../../../core/models/trello.model"
 
 @Component({
   selector: "app-edit-card-dialog",

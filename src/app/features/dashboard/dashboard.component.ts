@@ -15,9 +15,10 @@ import { MatTooltipModule } from "@angular/material/tooltip"
 import { MatRippleModule } from "@angular/material/core"
 import { FormsModule } from "@angular/forms"
 
-import { TrelloService, type TrelloBoard } from "../../core/services/trello.service"
 import { LoadingService } from "../../core/services/loading.service"
 import { CreateBoardDialogComponent } from "../../shared/components/create-board-dialog/create-board-dialog.component"
+import { TrelloService } from "../../core/services/trello.service"
+import { TrelloBoard } from "../../core/models/trello.model"
 
 @Component({
   selector: "app-dashboard",

@@ -13,16 +13,7 @@ import { MatBadgeModule } from "@angular/material/badge"
 import { TrelloService, type TrelloBoard, type TrelloList, type TrelloCard } from "../../core/services/trello.service"
 import { AIService, type AIAnalysis } from "../../core/services/ai.service"
 import { LoadingService } from "../../core/services/loading.service"
-
-interface BoardMetrics {
-  totalCards: number
-  completedCards: number
-  inProgressCards: number
-  todoCards: number
-  overdueCards: number
-  averageCompletionTime: number
-  inactiveCards: number
-}
+import { BoardMetrics } from "../../core/models/board-metrics.interface"
 
 @Component({
   selector: "app-analytics",

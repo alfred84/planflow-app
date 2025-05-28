@@ -1,20 +1,9 @@
 import { inject, Injectable } from "@angular/core"
 import { type Observable, of, delay } from "rxjs"
-import type { TrelloBoard, TrelloCard, TrelloList } from "./trello.service"
 import { environment } from "../../../environments/environment"
 import { HttpClient } from "@angular/common/http"
-
-export interface AIAnalysis {
-  workflowSuggestions: string[]
-  priorityTasks: string[]
-  bottlenecks: string[]
-  recommendations: string[]
-  productivity: {
-    score: number
-    trend: "up" | "down" | "stable"
-    insights: string[]
-  }
-}
+import { TrelloBoard, TrelloCard, TrelloList } from "../models/trello.model"
+import { AIAnalysis } from "../models/aianalisis.interface"
 
 const openAiUrl = environment.openAiUrl;
 const openAiToken = environment.openAiToken;

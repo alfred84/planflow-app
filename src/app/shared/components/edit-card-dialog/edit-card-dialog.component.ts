@@ -25,6 +25,7 @@ import type { TrelloCard } from "../../../core/services/trello.service"
     MatNativeDateModule,
     MatIconModule,
     MatDividerModule,
+    ReactiveFormsModule
   ],
   templateUrl: './edit-card-dialog.component.html',
   styleUrls: ['./edit-card-dialog.component.scss'],

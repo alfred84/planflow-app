@@ -1,13 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MATERIAL_MODULES } from '../../../shared/material-ui';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../core/services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, MATERIAL_MODULES],
+  standalone: true,
+  imports: [ReactiveFormsModule, MatIconModule, MatProgressSpinnerModule, MatFormFieldModule, MatInputModule],
   templateUrl: './login.component.html',  
   styleUrls: ['./login.component.scss']
 })
@@ -42,27 +46,6 @@ export class LoginComponent {
   private authenticateWithTrello(apiKey: string) {    
 
     this.authSvc.loginWithTrello(apiKey);
-
-    // // Aquí iría la lógica real de autenticación con Trello
-    // setTimeout(() => {
-    //   this.isLoading = false;
-      
-    //   // Simulamos una respuesta exitosa
-      // if (apiKey.length >= 32) {
-      //   this._snackBar.open('¡Autenticación exitosa! Sincronizado con Trello', 'Cerrar', {
-      //     duration: 3000,
-      //     panelClass: ['success-snackbar']
-      //   });
-        
-    //     // Aquí podrías emitir un evento o navegar a otra página
-    //     console.log('API Key válida:', apiKey);
-    //   } else {
-    //     this._snackBar.open('Error: API key inválida', 'Cerrar', {
-    //       duration: 3000,
-    //       panelClass: ['error-snackbar']
-    //     });
-    //   }
-    // }, 2000);
   }
 
   private markFormGroupTouched() {

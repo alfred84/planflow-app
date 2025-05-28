@@ -1,0 +1,113 @@
+<div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 rounded-t-xl">
+      <div class="px-6 py-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
+            <mat-icon class="text-white text-lg">edit</mat-icon>
+          </div>
+          <div>
+            <h2 mat-dialog-title class="text-xl font-semibold text-gray-800 dark:text-gray m-0">
+              Edit Card
+            </h2>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+              Update your card details
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider class="opacity-20"></mat-divider>
+    
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="flex flex-col h-full">
+      <mat-dialog-content class="px-6 py-6 space-y-6 flex-1">
+        <!-- Card Name Field -->
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <mat-icon class="text-gray-500 text-lg">title</mat-icon>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Card Name</label>
+          </div>
+          <mat-form-field appearance="fill" class="w-full modern-field">
+            <mat-label>Enter card name</mat-label>
+            <input 
+              matInput 
+              formControlName="name" 
+              placeholder="My awesome task..."
+              class="text-gray-800 dark:text-white"
+              required>
+            <mat-icon matPrefix class="text-gray-400 mr-2">credit_card</mat-icon>
+            @if (cardForm.get('name')?.hasError('required') && cardForm.get('name')?.touched) {
+              <mat-error class="text-red-500">
+                <mat-icon class="text-xs mr-1">error_outline</mat-icon>
+                Card name is required
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Description Field -->
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <mat-icon class="text-gray-500 text-lg">description</mat-icon>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+          </div>
+          <mat-form-field appearance="fill" class="w-full modern-field">
+            <mat-label>Enter card description</mat-label>
+            <textarea 
+              matInput 
+              formControlName="desc" 
+              placeholder="Describe your task in detail..."
+              rows="4"
+              class="text-gray-800 dark:text-white resize-none">
+            </textarea>
+            <mat-icon matPrefix class="text-gray-400 mr-2 self-start mt-1">notes</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Due Date Field -->
+        <div class="space-y-2">
+          <div class="flex items-center gap-2">
+            <mat-icon class="text-gray-500 text-lg">schedule</mat-icon>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Due Date</label>
+          </div>
+          <mat-form-field appearance="fill" class="w-full modern-field">
+            <mat-label>Select due date</mat-label>
+            <input 
+              matInput 
+              [matDatepicker]="picker"
+              formControlName="due"
+              placeholder="Choose a date..."
+              class="text-gray-800 dark:text-white">
+            <mat-icon matPrefix class="text-gray-400 mr-2">event</mat-icon>
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-dialog-content>
+
+      <mat-divider class="opacity-20"></mat-divider>
+
+      <!-- Action Buttons -->
+      <mat-dialog-actions class="px-6 py-4 bg-gray-50 dark:bg-slate-800 rounded-b-xl">
+        <div class="flex justify-end gap-3 w-full">
+          <button 
+            mat-stroked-button 
+            type="button" 
+            (click)="onCancel()"
+            class="px-6 py-2 border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-slate-700 transition-all duration-200">
+            <mat-icon class="mr-2 text-sm">close</mat-icon>
+            Cancel
+          </button>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            [disabled]="cardForm.invalid"
+            class="px-8 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:hover:scale-100">
+            <mat-icon class="mr-2 text-sm">save</mat-icon>
+            Update Card
+          </button>
+        </div>
+      </mat-dialog-actions>
+    </form>

@@ -1,0 +1,195 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- Header Section with improved gradient and glass effect -->
+    @if (board) {
+    <div class="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="flex items-center space-x-4">
+            <button 
+                mat-fab 
+                color="primary"
+                class="!w-12 !h-12 !shadow-lg hover:!shadow-xl transition-all duration-300"
+                (click)="goBack()"
+                matTooltip="Volver al dashboard"
+                matTooltipPosition="below">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <div>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                {{ board.name }}
+                </h1>
+                @if (board.desc) {
+                <p class="text-slate-600 mt-1 max-w-2xl">{{ board.desc }}</p>
+                }
+            </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+            <div class="bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
+                <span class="text-sm font-medium text-slate-700">
+                {{ getTotalCards() }} tarjetas • {{ listsWithCards.length }} listas
+                </span>
+            </div>
+            <button 
+                mat-raised-button 
+                color="accent"
+                class="!shadow-lg hover:!shadow-xl !transition-all !duration-300 !rounded-full !px-6"
+                (click)="viewAnalytics()">
+                <mat-icon class="mr-2">analytics</mat-icon>
+                Analytics
+            </button>
+            </div>
+        </div>
+        </div>
+    </div>
+    }
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Loading State with improved animation -->
+    @if (loadingService.isLoading()) {
+        <div class="flex flex-col items-center justify-center py-20">
+        <div class="relative">
+            <mat-spinner diameter="60" strokeWidth="4" class="!text-indigo-600"></mat-spinner>
+            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 opacity-20 animate-pulse"></div>
+        </div>
+        <p class="mt-4 text-slate-600 font-medium">Cargando tablero...</p>
+        </div>
+    }
+
+    <!-- Board Lists with enhanced visual design -->
+    @if (!loadingService.isLoading() && listsWithCards.length > 0) {
+        <div class="flex gap-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
+        @for (listWithCards of listsWithCards; track listWithCards.list.id) {
+            <div class="flex-shrink-0 w-80">
+            <mat-card class="!h-full !shadow-xl !border-0 !bg-white/90 !backdrop-blur-sm hover:!shadow-2xl !transition-all !duration-300 !rounded-2xl overflow-hidden">
+                <!-- List Header with gradient -->
+                <div class="bg-gradient-to-r from-slate-100 to-slate-50 border-b border-slate-200/50 p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                    <h3 class="text-lg font-bold text-slate-800">
+                        {{ listWithCards.list.name }}
+                    </h3>
+                    <div 
+                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold"
+                        [class]="getListBadgeClass(listWithCards.cards.length)">
+                        {{ listWithCards.cards.length }}
+                    </div>
+                    </div>
+                    
+                    <button 
+                    mat-icon-button 
+                    [matMenuTriggerFor]="listMenu"
+                    class="!text-slate-600 hover:!text-slate-800 hover:!bg-slate-200/50"
+                    matTooltip="Opciones de lista">
+                    <mat-icon>more_vert</mat-icon>
+                    </button>
+                    
+                    <mat-menu #listMenu="matMenu" class="!rounded-xl !shadow-2xl">
+                    <button mat-menu-item (click)="addCard(listWithCards.list.id)" class="!rounded-lg">
+                        <mat-icon class="!text-emerald-600">add_circle</mat-icon>
+                        <span class="ml-2">Agregar tarjeta</span>
+                    </button>
+                    </mat-menu>
+                </div>
+                </div>
+
+                <!-- Cards Container with enhanced styling -->
+                <div class="p-4 min-h-[300px] max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
+                <div 
+                    cdkDropList
+                    [cdkDropListData]="listWithCards.cards"
+                    [cdkDropListConnectedTo]="getConnectedLists()"
+                    (cdkDropListDropped)="drop($event)"
+                    class="space-y-3 min-h-[250px] p-1">
+                    
+                    @for (card of listWithCards.cards; track card.id) {
+                    <div 
+                        cdkDrag
+                        class="group bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:border-indigo-200"
+                        (click)="editCard(card)">
+                        
+                        <!-- Card Header -->
+                        <div class="flex items-start justify-between mb-3">
+                        <h4 class="font-semibold text-slate-900 flex-1 leading-snug">{{ card.name }}</h4>
+                        <mat-icon class="!text-slate-400 !text-lg group-hover:!text-slate-600 transition-colors ml-2">
+                            drag_indicator
+                        </mat-icon>
+                        </div>
+                        
+                        @if (card.desc) {
+                        <p class="text-sm text-slate-600 mb-3 line-clamp-2 leading-relaxed">{{ card.desc }}</p>
+                        }
+                        
+                        <!-- Card Labels with improved styling -->
+                        @if (card.labels.length > 0) {
+                        <div class="flex flex-wrap gap-1.5 mb-3">
+                            @for (label of card.labels; track label.id) {
+                            <mat-chip 
+                                class="!text-xs !h-6 !rounded-full !font-medium !shadow-sm"
+                                [style.background-color]="getLabelColor(label.color)"
+                                [style.color]="getContrastColor(label.color)">
+                                {{ label.name }}
+                            </mat-chip>
+                            }
+                        </div>
+                        }
+                        
+                        <!-- Card Footer with enhanced info display -->
+                        <div class="flex justify-between items-center pt-3 border-t border-slate-100">
+                        @if (card.due) {
+                            <div class="flex items-center space-x-1" [class]="getDueDateClass(card.due)">
+                            <mat-icon class="!text-sm">schedule</mat-icon>
+                            <span class="text-xs font-medium">{{ formatDueDate(card.due) }}</span>
+                            </div>
+                        } @else {
+                            <div></div>
+                        }
+                        
+                        <div class="flex items-center space-x-1 text-xs text-slate-500">
+                            <mat-icon class="!text-sm">update</mat-icon>
+                            <span>{{ formatDate(card.dateLastActivity) }}</span>
+                        </div>
+                        </div>
+                    </div>
+                    }
+                    
+                    <!-- Empty state for list with improved design -->
+                    @if (listWithCards.cards.length === 0) {
+                    <div class="text-center py-12 px-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center">
+                        <mat-icon class="!text-2xl !text-slate-400">inbox</mat-icon>
+                        </div>
+                        <h4 class="text-base font-medium text-slate-600 mb-2">Lista vacía</h4>
+                        <p class="text-sm text-slate-500 mb-4">Comienza agregando tu primera tarjeta</p>
+                        <button 
+                        mat-raised-button 
+                        color="primary"
+                        (click)="addCard(listWithCards.list.id)"
+                        class="!rounded-full !shadow-lg hover:!shadow-xl !transition-all !duration-300">
+                        <mat-icon class="mr-2">add</mat-icon>
+                        Agregar tarjeta
+                        </button>
+                    </div>
+                    }
+                </div>
+                </div>
+            </mat-card>
+            </div>
+        }
+        </div>
+    }
+
+    <!-- Empty State with enhanced visual appeal -->
+    @if (!loadingService.isLoading() && listsWithCards.length === 0) {
+        <div class="flex flex-col items-center justify-center py-20 px-4">
+        <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center">
+            <mat-icon class="!text-4xl !text-indigo-400">view_column</mat-icon>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-700 mb-3">Sin listas disponibles</h2>
+        <p class="text-slate-500 text-center max-w-md leading-relaxed">
+            Este tablero aún no tiene listas. Las listas te ayudan a organizar tus tarjetas y flujo de trabajo.
+        </p>
+        </div>
+    }
+    </div>
+</div>

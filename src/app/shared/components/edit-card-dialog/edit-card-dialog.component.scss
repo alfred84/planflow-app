@@ -1,0 +1,65 @@
+:host {
+    display: block;
+    min-width: 480px;
+    max-width: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modern-field {
+    --mdc-outlined-text-field-container-shape: 8px;
+    --mdc-outlined-text-field-outline-color: rgb(229 231 235);
+    --mdc-outlined-text-field-hover-outline-color: rgb(156 163 175);
+    --mdc-outlined-text-field-focus-outline-color: rgb(59 130 246);
+}
+
+.modern-field:hover {
+    --mdc-outlined-text-field-outline-color: rgb(156 163 175);
+}
+
+.modern-field.mat-focused {
+    --mdc-outlined-text-field-outline-color: rgb(59 130 246);
+    --mdc-outlined-text-field-outline-width: 2px;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+    color: white !important;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+    padding: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+::ng-deep .mat-mdc-dialog-content {
+    padding: 0 !important;
+    margin: 20px 24px 0 !important;
+    max-height: none !important;
+}
+
+::ng-deep .mat-mdc-dialog-actions {
+    padding: 20px !important;
+    margin: 0 !important;
+    min-height: auto !important;
+}
+
+/* Animaciones sutiles */
+.modern-field {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-field:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para modo oscuro */
+@media (prefers-color-scheme: dark) {
+    .modern-field {
+    --mdc-outlined-text-field-outline-color: rgb(75 85 99);
+    --mdc-outlined-text-field-hover-outline-color: rgb(107 114 128);
+    --mdc-outlined-text-field-focus-outline-color: rgb(59 130 246);
+    }
+}

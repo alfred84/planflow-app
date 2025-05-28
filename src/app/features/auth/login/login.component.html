@@ -1,0 +1,90 @@
+<div class="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-cyan-100 flex items-center justify-center p-4">
+  <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl p-8 w-full max-w-md border border-white/20">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="mx-auto w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
+        <mat-icon class="text-white text-3xl">integration_instructions</mat-icon>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-800 mb-2">Conectar con Trello</h1>
+      <p class="text-gray-600 text-sm">Ingresa tu API key para sincronizar con Trello</p>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      
+      <!-- API Key Field -->
+      <div class="space-y-2">
+        <mat-form-field appearance="fill" class="w-full custom-form-field">
+          <mat-label>API Key de Trello</mat-label>
+          <input 
+            matInput 
+            formControlName="apiKey"
+            [type]="hideApiKey ? 'password' : 'text'"
+            placeholder="Ingresa tu API key"
+            class="transition-all duration-200">
+          
+          <button 
+            mat-icon-button 
+            matSuffix 
+            type="button"
+            (click)="toggleApiKeyVisibility()"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideApiKey">
+            <mat-icon>{{hideApiKey ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          
+          @if (authForm.get('apiKey')?.invalid && authForm.get('apiKey')?.touched) {
+            <mat-error >
+              {{ getErrorMessage() }}
+            </mat-error>
+          }
+          
+        </mat-form-field>
+      </div>
+
+      <!-- Help Text -->
+      <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+        <div class="flex">
+          <mat-icon class="text-blue-400 mr-3 mt-0.5">info</mat-icon>
+          <div>
+            <p class="text-sm text-blue-700">
+              <strong>¿Dónde encontrar tu API key?</strong><br>
+              Ve a <a href="https://trello.com/app-key" target="_blank" class="underline hover:text-blue-900 transition-colors">trello.com/app-key</a> y copia tu clave
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        mat-raised-button 
+        type="submit"
+        [disabled]="isLoading || authForm.invalid"
+        class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+        
+        @if (!isLoading) {
+          <span class="flex items-center justify-center">
+            <mat-icon class="mr-2">sync</mat-icon>
+            Sincronizar con Trello
+          </span>
+        }
+        
+        @else{
+          <span class="flex items-center justify-center">
+            <mat-spinner diameter="20" class="mr-3"></mat-spinner>
+            Conectando...
+          </span>
+        }
+        
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <div class="mt-6 text-center">
+      <p class="text-xs text-gray-500">
+        Tu API key se mantiene segura y no se almacena en nuestros servidores
+      </p>
+    </div>
+  </div>
+</div>

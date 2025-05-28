@@ -1,0 +1,114 @@
+<div class="relative overflow-hidden">
+      <!-- Header with gradient background -->
+      <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-6 -m-6 mb-0">
+        <div class="flex items-center justify-between text-white">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+              <mat-icon class="text-white">add_card</mat-icon>
+            </div>
+            <div>
+              <h2 class="text-xl font-semibold tracking-tight">Create New Card</h2>
+              <p class="text-blue-100 text-sm opacity-90">Add a new card to your collection</p>
+            </div>
+          </div>
+          <button 
+            mat-icon-button 
+            (click)="onCancel()" 
+            class="text-white/80 hover:text-white hover:bg-white/10 transition-colors duration-200">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Form Content -->
+      <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="mt-6">
+        <mat-dialog-content class="space-y-6 px-0">
+          <!-- Card Name Field -->
+          <div class="group">
+            <mat-form-field 
+              appearance="outline" 
+              class="w-full transition-all duration-300 group-hover:scale-[1.02]">
+              <mat-label class="flex items-center space-x-2">
+                <mat-icon class="text-lg">badge</mat-icon>
+                <span>Card Name</span>
+              </mat-label>
+              <input 
+                matInput 
+                formControlName="name" 
+                placeholder="Enter a memorable card name"
+                class="text-base"
+                required>
+              @if (cardForm.get('name')?.hasError('required') && cardForm.get('name')?.touched) {
+                <mat-error class="flex items-center space-x-1">
+                  <mat-icon class="text-sm">error_outline</mat-icon>
+                  <span>Card name is required</span>
+                </mat-error>
+              }
+              @if (cardForm.get('name')?.hasError('minlength') && cardForm.get('name')?.touched) {
+                <mat-error class="flex items-center space-x-1">
+                  <mat-icon class="text-sm">error_outline</mat-icon>
+                  <span>Card name must be at least 1 character</span>
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Description Field -->
+          <div class="group">
+            <mat-form-field 
+              appearance="outline" 
+              class="w-full transition-all duration-300 group-hover:scale-[1.02]">
+              <mat-label class="flex items-center space-x-2">
+                <mat-icon class="text-lg">description</mat-icon>
+                <span>Description</span>
+              </mat-label>
+              <textarea 
+                matInput 
+                formControlName="description" 
+                placeholder="Describe your card (optional)"
+                rows="4"
+                class="text-base resize-none">
+              </textarea>
+              <mat-hint class="text-xs text-gray-500">
+                Add any additional details about your card
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          <!-- Visual Separator -->
+          <div class="flex items-center justify-center py-4">
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+          </div>
+        </mat-dialog-content>
+
+        <!-- Enhanced Action Buttons -->
+        <mat-dialog-actions class="flex justify-end space-x-3 pt-4 pb-2">
+          <button 
+            mat-stroked-button 
+            type="button" 
+            (click)="onCancel()"
+            class="px-6 py-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-200 hover:scale-105 hover:shadow-md">
+            <div class="flex items-center space-x-2">
+              <mat-icon class="text-lg">cancel</mat-icon>
+              <span class="font-medium">Cancel</span>
+            </div>
+          </button>
+          
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"
+            [disabled]="cardForm.invalid"
+            class="px-8 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+            <div class="flex items-center space-x-2">
+              <mat-icon class="text-lg">add</mat-icon>
+              <span class="font-semibold">Create Card</span>
+            </div>
+          </button>
+        </mat-dialog-actions>
+      </form>
+
+      <!-- Subtle background decoration -->
+      <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-xl pointer-events-none"></div>
+      <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-tr from-purple-400/10 to-indigo-400/10 rounded-full blur-xl pointer-events-none"></div>
+    </div>

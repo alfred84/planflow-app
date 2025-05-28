@@ -1,0 +1,66 @@
+.analytics-tabs {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        overflow: hidden;
+      }
+
+      .analytics-tabs .mat-mdc-tab-group {
+        --mdc-secondary-navigation-tab-container-height: 60px;
+      }
+
+      .analytics-tabs .mat-mdc-tab {
+        font-weight: 600;
+        text-transform: none;
+        font-size: 1rem;
+      }
+
+      .metric-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        pointer-events: none;
+      }
+
+      .detailed-card {
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+
+      .ai-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .ai-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+        pointer-events: none;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+      }
+
+      .metric-card:hover {
+        animation: float 3s ease-in-out infinite;
+      }
